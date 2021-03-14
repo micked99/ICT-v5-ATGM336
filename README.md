@@ -9,6 +9,11 @@ Timing2.h is a testfile that will start tx every 2min
 Fuses to set
 
 62 D9 FE 1.8V / internal /div8 @ 1Mhz
+
 E2 D9 FE 1.8V / internal 8Mhz osc
+
 or the one if you use a 2/4/8Mhz external xo
 FD D9 FE 
+
+Good fusecalc page https://www.engbedded.com/fusecalc/
+
