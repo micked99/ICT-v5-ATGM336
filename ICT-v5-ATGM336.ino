@@ -15,7 +15,7 @@
 #include <TinyGPS++.h>
 #include <avr/power.h>
 
-#define WSPR_CTC                1334   // CTC value for WSPR - 10672 @ 16Mhz //5336 @ 8Mhz //2668 @ 4Mhz //1334 @ 2Mhz //667 @ 1Mhz
+#define WSPR_CTC                5336   // CTC value for WSPR - 10672 @ 16Mhz //5336 @ 8Mhz //2668 @ 4Mhz //1334 @ 2Mhz //667 @ 1Mhz
 #define WSPR_TONE_SPACING       146    // 146 ~1.46 Hz
 
 //#define WSPR_FREQ     7040185UL
@@ -55,7 +55,7 @@ ISR(TIMER1_COMPA_vect)
 void setup()
 {
   //clock_prescale_set(clock_div_2);
-  clock_prescale_set(clock_div_4);
+  //clock_prescale_set(clock_div_4);
   //clock_prescale_set(clock_div_8);
 
   sodaq_wdt_enable(WDT_PERIOD_8X);
