@@ -188,7 +188,7 @@ void rf_on() // Turn on the high-side switch, activating the transmitter
   digitalWrite(6, HIGH);
   digitalWrite(7, HIGH);
   delay(2);
-  si5351.init(SI5351_CRYSTAL_LOAD_0PF, 26000000, 0); // TCXO 26MHz
+  si5351.init(SI5351_CRYSTAL_LOAD_0PF, TCXO_REF_FREQ, 0); // TCXO 26MHz
   si5351.set_clock_pwr(SI5351_CLK1, 0);  // Turn off the CLK1 clock
   si5351.output_enable(SI5351_CLK1, 0);  // Turn off the CLK1 output
   si5351.set_clock_pwr(SI5351_CLK2, 0);  // Turn off the CLK2 clock
