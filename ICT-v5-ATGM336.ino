@@ -31,7 +31,7 @@ JTEncode jtencode;
 
 // Global variables
 unsigned long freq;
-char call[] = "LY1XD"; // WSPR Standard callsign
+char call[] = "LY1BWB"; // WSPR Standard callsign
 char call_telemetry[7]; // WSPR telemetry callsign
 char loc_telemetry[5]; // WSPR telemetry locator
 uint8_t dbm_telemetry; // WSPR telemetry dbm
