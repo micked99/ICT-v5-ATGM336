@@ -54,6 +54,26 @@ volatile bool proceed = false;
 ISR(TIMER1_COMPA_vect)
 { proceed = true; }
 
+void beep(int on, int off) {
+  freq = WSPR_FREQ;
+  pinMode(2, OUTPUT);  // Si5351 off
+  pinMode(4, OUTPUT);
+  pinMode(5, OUTPUT);
+  pinMode(6, OUTPUT);
+  pinMode(7, OUTPUT);
+  digitalWrite(2, HIGH);
+  digitalWrite(4, HIGH);
+  digitalWrite(5, HIGH);
+  digitalWrite(6, HIGH);
+  digitalWrite(7, HIGH);
+  si5351.init(SI5351_CRYSTAL_LOAD_0PF, TCXO_REF_FREQ, 0);
+  si5351.update_status();
+  delay(off);
+  si5351.set_freq(freq * 100, SI5351_CLK0);
+  delay(on);
+  si5351.output_enable(SI5351_CLK0, 0);
+}
+
 void setup()
 {
   //clock_prescale_set(clock_div_2);
@@ -84,6 +104,7 @@ void setup()
   digitalWrite(A2, HIGH);
   digitalWrite(A3, HIGH); 
 
+  beep(100,10);
   Serial.begin(9600);
   delay(1000); 
   Serial.write("$PCAS04,1*18\r\n"); //Sets navsystem of the ATGM to GPS only
