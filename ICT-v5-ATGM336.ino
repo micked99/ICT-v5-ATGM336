@@ -21,7 +21,8 @@
 //#define WSPR_FREQ     7040185UL
 //#define WSPR_FREQ     10140285UL          
 #define WSPR_FREQ     14097192UL      // <<<<< SET TX FREQUENCY HERE
-#define TCXO_REF_FREQ 26996500
+//#define TCXO_REF_FREQ 26996500
+#define TCXO_REF_FREQ 26996000
 
 // Enumerations
 enum mode {MODE_WSPR};
