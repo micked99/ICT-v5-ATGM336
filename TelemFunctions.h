@@ -3,7 +3,7 @@
 */
 
 void setGPStime() // Sets the system time from the GPS
-  {
+{
   if (gps.time.isValid())
   {
     Hour = gps.time.hour();
@@ -11,6 +11,7 @@ void setGPStime() // Sets the system time from the GPS
     Second = gps.time.second();
     setTime(Hour, Minute, Second, 1, 6, 2021); // (hr,min,sec,day,month,yr)
   }
+}
 
 void loc4calc() // Determine the locator from the GPS data
 {
@@ -77,7 +78,7 @@ void loc_dbm_telem() // Determine the locator and dBm value for the telemetry tr
     wADC = wADC + ADCW;
     delay(20);
   }
-  
+
   wADC = wADC / 5;
   temp = (wADC - 304.21 ) / 1.124;
   delay(20);
@@ -166,17 +167,19 @@ void setModeWSPR_telem()
 void encode() // Loop through the string, transmitting one character at a time
 {
   uint8_t i;
+
   for (i = 0; i < symbol_count; i++) // Now transmit the channel symbols
-{
+  {
     //si5351.output_enable(SI5351_CLK0, 1); // Turn off the CLK0 output
     //si5351.set_freq_manual((freq * 100) + (tx_buffer[i] * tone_spacing),87500000000ULL,SI5351_CLK0);
     si5351.set_freq((freq * 100) + (tx_buffer[i] * tone_spacing),SI5351_CLK0);
     proceed = false;
     while (!proceed);
     sodaq_wdt_reset();
-}
+  }
   si5351.output_enable(SI5351_CLK0, 0); // Turn off the CLK0 output
   si5351.set_clock_pwr(SI5351_CLK0, 0);  // Turn off the CLK0 clock
+
 }
 
 void rf_on() // Turn on the high-side switch, activating the transmitter
