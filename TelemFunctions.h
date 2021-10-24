@@ -9,8 +9,7 @@ void setGPStime() // Sets the system time from the GPS
     Hour = gps.time.hour();
     Minute = gps.time.minute();
     Second = gps.time.second();
-    setTime(Hour, Minute, Second, 1, 1, 2000); // (hr,min,sec,day,month,yr)
-  }
+    setTime(Hour, Minute, Second, 1, 6, 2021); // (hr,min,sec,day,month,yr)
   }
 
 void loc4calc() // Determine the locator from the GPS data
