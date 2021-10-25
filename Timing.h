@@ -22,20 +22,20 @@ void TXtiming() // Timing
   if ((timeStatus() == timeSet) && (second() == 0) && (minute() >= 0))
   {
     setGPStime();
-    if ((minute() % 10 == 0) && (second() <= 2)) {         // 00 - TX WSPR standard message
+    if ((minute() % 10 == 0) && (second() <= 0)) {         // 00 - TX WSPR standard message
       TXencode();
     }
     
-    else if ((minute() % 10 == 2) && (second() <= 2) ) {   // 02 - TX WSPR telemetry message
+    else if ((minute() % 10 == 2) && (second() <= 0) ) {   // 02 - TX WSPR telemetry message
       telemetry_set = true; // 02 is WSPR telemetry
       TXencode();
     }
     
-    else if ((minute() % 10 == 4) && (second() <= 2) ) {   // 04 - TX WSPR standard message
+    else if ((minute() % 10 == 4) && (second() <= 0) ) {   // 04 - TX WSPR standard message
       TXencode();
     }
     
-    else if ((minute() % 10 == 8) && (second() <= 2) ) {  // 08 - TX WSPR telemetry message
+    else if ((minute() % 10 == 8) && (second() <= 0) ) {  // 08 - TX WSPR telemetry message
       TXencode();
     }
   }
