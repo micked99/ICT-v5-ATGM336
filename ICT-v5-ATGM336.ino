@@ -49,30 +49,11 @@ int gps_speed = 0;
 volatile bool proceed = false;
 
 #include "TelemFunctions.h" // Various telemetry functions
-#include "Timing2.h" // Scheduling
+#include "Timing.h" // Scheduling
+#include "Beep.h" // beeps and CW
 
 ISR(TIMER1_COMPA_vect)
 { proceed = true; }
-
-void beep(int on, int off) {
-  freq = WSPR_FREQ;
-  pinMode(2, OUTPUT);  // Si5351 off
-  pinMode(4, OUTPUT);
-  pinMode(5, OUTPUT);
-  pinMode(6, OUTPUT);
-  pinMode(7, OUTPUT);
-  digitalWrite(2, HIGH);
-  digitalWrite(4, HIGH);
-  digitalWrite(5, HIGH);
-  digitalWrite(6, HIGH);
-  digitalWrite(7, HIGH);
-  si5351.init(SI5351_CRYSTAL_LOAD_0PF, TCXO_REF_FREQ, 0);
-  si5351.update_status();
-  delay(off);
-  si5351.set_freq(freq * 100, SI5351_CLK0);
-  delay(on);
-  si5351.output_enable(SI5351_CLK0, 0);
-}
 
 void setup()
 {
@@ -81,7 +62,7 @@ void setup()
   //clock_prescale_set(clock_div_8);
 
   sodaq_wdt_enable(WDT_PERIOD_8X);
-  
+
   pinMode(3, OUTPUT); digitalWrite(3, HIGH); //gps pin 5 on
   
   pinMode(2, OUTPUT);  // Si5351 off
@@ -104,7 +85,7 @@ void setup()
   digitalWrite(A2, HIGH);
   digitalWrite(A3, HIGH); 
 
-  beep(100,10);
+  cw_l(); cw_y(); cw_1(); cw_x(); cw_d();
   Serial.begin(9600);
   delay(1000); 
   Serial.write("$PCAS04,1*18\r\n"); //Sets navsystem of the ATGM to GPS only
@@ -129,5 +110,8 @@ void setup()
     if (gps.encode(Serial.read())) // GPS related functions need to be in here to work with tinyGPS Plus library
     if (timeStatus() == timeNotSet) // Only sets time if already not done previously
   { setGPStime(); } // Sets system time to GPS UTC time for sync
-    if (gps.location.isValid()) TXtiming(); // Process timing 
+
+    if (gps.location.isValid()) {
+      TXtiming(); // Process timing
+    }
   }
