@@ -21,6 +21,8 @@
 //#define WSPR_FREQ     7040185UL
 //#define WSPR_FREQ     10140285UL          
 #define WSPR_FREQ     14097192UL      // <<<<< SET TX FREQUENCY HERE
+//#define TCXO_REF_FREQ 26996500
+#define TCXO_REF_FREQ 26996000
 
 // Enumerations
 enum mode {MODE_WSPR};
@@ -30,7 +32,7 @@ JTEncode jtencode;
 
 // Global variables
 unsigned long freq;
-char call[] = "LY1XD"; // WSPR Standard callsign
+char call[] = "LY1BWB"; // WSPR Standard callsign
 char call_telemetry[7]; // WSPR telemetry callsign
 char loc_telemetry[5]; // WSPR telemetry locator
 uint8_t dbm_telemetry; // WSPR telemetry dbm
@@ -47,7 +49,8 @@ int gps_speed = 0;
 volatile bool proceed = false;
 
 #include "TelemFunctions.h" // Various telemetry functions
-#include "Timing2.h" // Scheduling
+#include "Timing.h" // Scheduling
+#include "Beep.h" // beeps and CW
 
 ISR(TIMER1_COMPA_vect)
 { proceed = true; }
@@ -59,7 +62,7 @@ void setup()
   //clock_prescale_set(clock_div_8);
 
   sodaq_wdt_enable(WDT_PERIOD_8X);
-  
+
   pinMode(3, OUTPUT); digitalWrite(3, HIGH); //gps pin 5 on
   
   pinMode(2, OUTPUT);  // Si5351 off
@@ -82,6 +85,7 @@ void setup()
   digitalWrite(A2, HIGH);
   digitalWrite(A3, HIGH); 
 
+  cw_l(); cw_y(); cw_1(); cw_x(); cw_d();
   Serial.begin(9600);
   delay(1000); 
   Serial.write("$PCAS04,1*18\r\n"); //Sets navsystem of the ATGM to GPS only
@@ -106,5 +110,8 @@ void setup()
     if (gps.encode(Serial.read())) // GPS related functions need to be in here to work with tinyGPS Plus library
     if (timeStatus() == timeNotSet) // Only sets time if already not done previously
   { setGPStime(); } // Sets system time to GPS UTC time for sync
-    if (gps.location.isValid()) TXtiming(); // Process timing 
+
+    if (gps.location.isValid()) {
+      TXtiming(); // Process timing
+    }
   }
