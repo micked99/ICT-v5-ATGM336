@@ -4,6 +4,7 @@
    HABalloon by KD2NDR, Miami Florida October 25 2018
    Improvements by YO3ICT, Bucharest Romania, April-May 2019 
    Improvements By SA6BSS, Sweden, fall 2020
+   Improvements by LY2EN, Lithuania, fall of 2021
    You may use and modify the following code to suit
    your needs so long as it remains open source
    and it is for non-commercial use only.
@@ -63,33 +64,27 @@ void setup()
 
   sodaq_wdt_enable(WDT_PERIOD_8X);
 
-  pinMode(3, OUTPUT); digitalWrite(3, HIGH); //gps pin 5 on
-  
   pinMode(2, OUTPUT);  // Si5351 off
   pinMode(4, OUTPUT);
   pinMode(5, OUTPUT);
   pinMode(6, OUTPUT);
   pinMode(7, OUTPUT);
-  digitalWrite(2, LOW);
-  digitalWrite(4, LOW);
-  digitalWrite(5, LOW);
-  digitalWrite(6, LOW);
-  digitalWrite(7, LOW);
-
+  cw_l(); cw_y(); cw_1(); cw_x(); cw_d();
   pinMode(A0, OUTPUT); // GPS VCC on
   pinMode(A1, OUTPUT);
   pinMode(A2, OUTPUT);
   pinMode(A3, OUTPUT);
+  pinMode(A7, OUTPUT);
   digitalWrite(A0, HIGH);
   digitalWrite(A1, HIGH);
   digitalWrite(A2, HIGH);
-  digitalWrite(A3, HIGH); 
-
-  cw_l(); cw_y(); cw_1(); cw_x(); cw_d();
+  digitalWrite(A3, HIGH);
+  digitalWrite(A7, HIGH);
+  delay(500);
   Serial.begin(9600);
-  delay(1000); 
+  delay(1000);
   Serial.write("$PCAS04,1*18\r\n"); //Sets navsystem of the ATGM to GPS only
-  delay(1000); 
+  delay(500);
 
   noInterrupts(); // Set up Timer1 for interrupts every symbol period.
   TCCR1A = 0;

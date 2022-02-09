@@ -184,6 +184,7 @@ void encode() // Loop through the string, transmitting one character at a time
 
 void rf_on() // Turn on the high-side switch, activating the transmitter
 {
+  delay(10);
   digitalWrite(2, HIGH);
   digitalWrite(4, HIGH);
   digitalWrite(5, HIGH);
@@ -211,19 +212,20 @@ void rf_off() // Turn off the high-side switch
 void GPS_VCC_on()
   {
   Serial.begin(9600);
-  delay(2);
+  delay(10);
   digitalWrite(A0, HIGH);
   digitalWrite(A1, HIGH);
   digitalWrite(A2, HIGH);
   digitalWrite(A3, HIGH);
+  digitalWrite(A7, HIGH);
   }
 
 void GPS_VCC_off()
   {
   Serial.end();
-  delay(2);
   digitalWrite(A0, LOW);
   digitalWrite(A1, LOW);
   digitalWrite(A2, LOW);
   digitalWrite(A3, LOW);
+  digitalWrite(A7, LOW);
   }

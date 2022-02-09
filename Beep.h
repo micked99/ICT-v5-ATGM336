@@ -6,11 +6,6 @@
 
 void beep(int on, int off) {
   freq = WSPR_FREQ;
-  pinMode(2, OUTPUT);  // Si5351 off
-  pinMode(4, OUTPUT);
-  pinMode(5, OUTPUT);
-  pinMode(6, OUTPUT);
-  pinMode(7, OUTPUT);
   digitalWrite(2, HIGH);
   digitalWrite(4, HIGH);
   digitalWrite(5, HIGH);
@@ -22,6 +17,11 @@ void beep(int on, int off) {
   si5351.set_freq(freq * 100, SI5351_CLK0);
   delay(on);
   si5351.output_enable(SI5351_CLK0, 0);
+  digitalWrite(2, LOW);  // Si5351 off
+  digitalWrite(4, LOW);
+  digitalWrite(5, LOW);
+  digitalWrite(6, LOW);
+  digitalWrite(7, LOW);
 }
 
 void dit() { beep(DIT_DURATION, DIT_DURATION); }
