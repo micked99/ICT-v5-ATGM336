@@ -22,6 +22,7 @@ void beep(int on, int off) {
   digitalWrite(5, LOW);
   digitalWrite(6, LOW);
   digitalWrite(7, LOW);
+  sodaq_wdt_reset();
 }
 
 void dit() { beep(DIT_DURATION, DIT_DURATION); }
